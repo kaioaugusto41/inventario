@@ -4,7 +4,7 @@
     
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
+
         <!-- Menu -->
 
         {% include 'partials/_menu.html' %}
@@ -14,8 +14,8 @@
           <div class="content-wrapper">
             <br>
             <h5 style="text-align: center;" class="mb-4">Impressoras</h5>
-            <div class="table-responsive text-nowrap">
-              <table class="table card-table">
+            <div style='height: 800px;' class="table-responsive text-nowrap">
+              <table  class="table card-table">
                 <thead>
                   <tr>
                     <th>Código</th>
@@ -24,10 +24,11 @@
                     <th>Modelo</th>
                     <th>Toners em estoque</th>
                     <th>IP</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  {% for impressora in impressoras %}
+                  {% for impressora, ping in impressoras_e_pings %}
                   <tr>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{impressora.codigo}}</strong></td>
                     <td>{{impressora.setor}}</td>
@@ -39,6 +40,11 @@
                     <td>
                       {{impressora.ip}}
                     </td>
+                    {% if ping == True %}
+                    <td><span class="badge bg-label-success me-1">Online</span></td>
+                    {% else %}
+                    <td><span class="badge bg-label-danger me-1">Offline</span></td>
+                    {% endif %}
                     <td>
                       <div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
@@ -56,7 +62,7 @@
 
     </div>
     
-    {% include 'partials/_excluir_impressora.html' %}
+    {% include 'partials/_excluir_impressora_index.html' %}
             <!-- / Content -->
 
 {% include 'partials/_footer.html' %}

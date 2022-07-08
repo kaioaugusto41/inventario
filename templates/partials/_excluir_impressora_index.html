@@ -1,0 +1,46 @@
+<div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+      <div class="modal-content p-3 p-md-5">
+        <div class="modal-body">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center mb-4">
+            <h3>Editar informações da impressora</h3>
+            <p>As alterações ficarão salvas nos logs em Navegação > Histórico > Logs</p>
+          </div>
+          <form action={% url 'index' %} method='GET' id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" >
+            {% csrf_token %}
+            <div class="col-12 col-md-6 fv-plugins-icon-container">
+              <label class="form-label" for="modalEditUserFirstName">Código</label>
+              <input name='codigo' type="text" id="modalEditUserFirstName"  class="form-control codigo" placeholder="John">
+            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+            <div class="col-12 col-md-6 fv-plugins-icon-container">
+              <label class="form-label" for="modalEditUserLastName">Setor</label>
+              <input name='setor' type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control setor" placeholder="Doe">
+            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+            
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="modalEditUserEmail">Marca</label>
+              <input name='marca' type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control marca" placeholder="example@domain.com">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="modalEditUserStatus">Modelo</label>
+              <input name='modelo' type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control modelo" placeholder="Doe">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="modalEditTaxID">Toners em estoque</label>
+              <input name='toners_estoque' type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id toner_estoque" placeholder="123 456 7890">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="modalEditUserPhone">IP</label>
+              <input name='ip' type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id ip" placeholder="123 456 7890">
+            </div>
+            
+            <div style="margin-top: 50px;" class="col-12 text-center">
+              <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+              <button class="btn btn-primary me-sm-3 me-1">Salvar</button>
+            </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
