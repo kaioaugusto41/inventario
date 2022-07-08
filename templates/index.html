@@ -24,11 +24,10 @@
                     <th>Modelo</th>
                     <th>Toners em estoque</th>
                     <th>IP</th>
-                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  {% for impressora, ping in impressoras_e_pings %}
+                  {% for impressora in impressoras %}
                   <tr>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{impressora.codigo}}</strong></td>
                     <td>{{impressora.setor}}</td>
@@ -40,11 +39,6 @@
                     <td>
                       {{impressora.ip}}
                     </td>
-                    {% if ping == True %}
-                    <td><span class="badge bg-label-success me-1">Online</span></td>
-                    {% else %}
-                    <td><span class="badge bg-label-danger me-1">Offline</span></td>
-                    {% endif %}
                     <td>
                       <div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
