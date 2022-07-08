@@ -9,6 +9,7 @@
           </div>
           <form action={% url 'index' %} method='GET' id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" >
             {% csrf_token %}
+            <input name='funcao' type="text" value='edita_impressora' style="display: none;">
             <div class="col-12 col-md-6 fv-plugins-icon-container">
               <label class="form-label" for="modalEditUserFirstName">Código</label>
               <input name='codigo' type="text" id="modalEditUserFirstName"  class="form-control codigo" placeholder="John">

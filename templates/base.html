@@ -127,6 +127,16 @@ $('#editUser').on('show.bs.modal', function (event) {
   modal.find('.ip').val(recipient_ip)
 })
 
+$('#onboardHorizontalImageModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient_codigo = button.data('codigo') // Extract info from data-* attributes
+
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.codigo').val(recipient_codigo)
+})
+
 </script>
 
 </body>

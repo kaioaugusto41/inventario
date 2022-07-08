@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="modal-onboarding modal fade animate__animated" id="onboardHorizontalImageModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+
+        </div>
+        <div class="modal-body onboarding-horizontal p-0">
+          <div class="onboarding-media">
+            <img src="{% static 'img/illustrations/duvida.jpg' %}" alt="boy-verify-email-light" width="273" class="img-fluid" data-app-dark-img="illustrations/boy-verify-email-dark.png" data-app-light-img="illustrations/boy-verify-email-light.png">
+          </div>
+          <div class="onboarding-content mb-0">
+            <h4 class="onboarding-title text-body">Tem certeza que deseja excluir a impressora?</h4>
+            <div class="onboarding-info">Após não será possível desfazer as alterações! Consulte todos os eventos em Navegação > Histórico > Logs</div>
+            <form action={% url 'index' %} method="POST">
+                {% csrf_token %}
+                <input style="display: none;" name='codigo' class="form-control codigo" placeholder="Enter your full name..." type="text" value="" tabindex="0" id="nameEx7">
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary">Sim</button>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

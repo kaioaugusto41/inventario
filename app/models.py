@@ -8,6 +8,7 @@ class Impressoras(models.Model):
     modelo = models.CharField(max_length=100, blank=True, null=True)
     qtd_toners = models.IntegerField(blank=True, null=True)
     ip = models.CharField(max_length=15, blank=True, null=True)
+    status = models.BooleanField(blank=True, null=True)
 
     def __str__(self):
         return self.codigo
