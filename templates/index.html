@@ -29,6 +29,7 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
+                  {% if impressoras %}
                   {% for impressora in impressoras %}
                   <tr>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{impressora.codigo}}</strong></td>
@@ -59,6 +60,7 @@
                     </td>
                   </tr>
                   {% endfor %}
+                  {% endif %}
                 </tbody>
               </table>
             </div>

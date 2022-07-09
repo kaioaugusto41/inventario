@@ -2,7 +2,7 @@
 <ul>
     {% for message in messages %}
 
-        <li {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible"  role="alert" {% endif %}>
+        <li style='text-align: center;' {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible"  role="alert" {% endif %}>
             {{message}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             </button>

@@ -15,6 +15,7 @@
             <div class="onboarding-info">Após não será possível desfazer as alterações! Consulte todos os eventos em Navegação > Histórico > Logs</div>
             <form action={% url 'index' %} method="POST">
                 {% csrf_token %}
+                <input name='funcao' type="text" value='exclui_impressora' style="display: none;">
                 <input style="display: none;" name='codigo' class="form-control codigo" placeholder="Enter your full name..." type="text" value="" tabindex="0" id="nameEx7">
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancelar</button>

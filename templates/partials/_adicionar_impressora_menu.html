@@ -6,41 +6,43 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form>
-        <div class="row g-2">
+        <form action={% url 'index' %} method='POST'>
+          <input name='funcao' type="text" value='adiciona_impressora' style="display: none;">
+          {% csrf_token %}
+        <div class="row g-2" >
             <div class="col mb-0">
                 <label for="emailWithTitle" class="form-label">Código</label>
-                <input type="text" id="emailWithTitle" class="form-control" placeholder="xxxx@xxx.xx">
+                <input type="text" name='codigo' id="emailWithTitle" class="form-control" required placeholder="Exemplo: L1065">
             </div>
             <div class="col mb-0">
                 <label for="dobWithTitle" class="form-label">Setor</label>
-                <input type="text" id="dobWithTitle" class="form-control" placeholder="DD / MM / YY">
+                <input type="text" name='setor' id="dobWithTitle" class="form-control" required placeholder="Exemplo: Engenharia">
             </div>
             </div>
           <div style="margin-top: 20px;" class="row g-2">
             <div class="col mb-0">
               <label for="emailWithTitle" class="form-label">Marca</label>
-              <input type="text" id="emailWithTitle" class="form-control" placeholder="xxxx@xxx.xx">
+              <input type="text" name='marca' id="emailWithTitle" class="form-control" required placeholder="Exemplo: Samsung">
             </div>
             <div class="col mb-0">
               <label for="dobWithTitle" class="form-label">Modelo</label>
-              <input type="text" id="dobWithTitle" class="form-control" placeholder="DD / MM / YY">
+              <input type="text" name='modelo' id="dobWithTitle" class="form-control" required placeholder="Exemplo: M4070">
             </div>
           </div>
           <div style="margin-top: 20px;" class="row g-2">
             <div class="col mb-0">
               <label for="emailWithTitle" class="form-label">Estoque de toners</label>
-              <input type="text" id="emailWithTitle" class="form-control" placeholder="xxxx@xxx.xx">
+              <input type="number" name='toners_estoque' id="emailWithTitle" class="form-control" >
             </div>
             <div class="col mb-0">
-              <label for="dobWithTitle" class="form-label">IP</label>
-              <input type="text" id="dobWithTitle" class="form-control" placeholder="DD / MM / YY">
+              <label for="dobWithTitle" class="form-label">Endereço IP</label>
+              <input type="text" name='ip' id="dobWithTitle" class="form-control" pattern="[0-9.]+$" required placeholder="Exemplo: 10.180.1.1">
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Salvar</button>
+          <button class="btn btn-primary">Salvar</button>
         </div>
     </form>
       </div>
