@@ -19,11 +19,11 @@
               <table  class="table card-table">
                 <thead>
                   <tr>
-                    <th>Código</th>
+                    <th style='text-align: center;'>Código</th>
                     <th>Setor</th>
                     <th>Marca</th>
                     <th>Modelo</th>
-                    <th>Toners em estoque</th>
+                    <th style='text-align: center;'>Toners em estoque</th>
                     <th>IP</th>
                     <th>Status</th>
                   </tr>
@@ -38,7 +38,13 @@
                     <td>
                       {{impressora.modelo}}
                     </td>
-                    <td><span class="badge bg-label-danger me-1">{{impressora.qtd_toners}}</span></td>
+                    <td style='text-align: center;'>
+                      {% if impressora.qtd_toners == 0 %}
+                      <span class="badge bg-label-danger me-1">{{impressora.qtd_toners}}</span>
+                      {% else %}
+                      <span class="badge bg-label-success me-1">{{impressora.qtd_toners}}</span>
+                      {% endif %}
+                    </td>
                     <td>
                       {{impressora.ip}}
                     </td>

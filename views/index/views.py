@@ -54,14 +54,14 @@ def index(request):
                 return redirect('index')
 
             # Valida tamanho do ip
-            if len(ip) > 12 or len(ip) < 10 or ip.count('.') != 3:
+            if len(ip) < 10 or ip.count('.') != 3:
                 messages.error(request, 'O endereço IP {} não é um IP válido :('.format(ip))
                 return redirect('index')
             
             # ADICIONA A IMPRESSORA
             else:
                 adiciona_impressora(request, codigo, setor, marca, modelo, toners_estoque, ip)
-
+                return redirect('index')
 
 
         if funcao == 'exclui_impressora':
@@ -71,6 +71,45 @@ def index(request):
             messages.success(request, 'Impressora excluída com sucesso! :)')
             return redirect('index')
         
+
+        if funcao == 'adiciona_toner':
+            quantidade_fornecida = request.POST.get('quantidade', False)
+            impressora = request.POST.get('impressora', False)
+            quantidade_antiga = Impressoras.objects.filter(codigo=impressora)[0].qtd_toners
+            quantidade_nova = int(quantidade_antiga) + int(quantidade_fornecida)
+            if int(quantidade_fornecida) < 1:
+                messages.error(request, 'A quantidade de toners novos não pode ser menor que 1 :(')
+                return redirect('index')
+            if int(quantidade_fornecida) > 1:
+                messages.success(request, 'A impressora de código {} ganhou mais {} toners :)'.format(impressora, quantidade_fornecida))
+                Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                return redirect('index')
+            else:
+                messages.success(request, 'A impressora de código {} ganhou mais {} toner :)'.format(impressora, quantidade_fornecida))
+                Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                return redirect('index')
+            
+    
+        if funcao == 'remove_toner':
+            quantidade_fornecida = request.POST.get('quantidade', False)
+            impressora = request.POST.get('impressora', False)
+            quantidade_antiga = Impressoras.objects.filter(codigo=impressora)[0].qtd_toners
+            quantidade_nova = int(quantidade_antiga) - int(quantidade_fornecida)
+            
+            if int(quantidade_nova) < 0:
+                messages.error(request, 'A quantidade de saída não pode ser maior que a quantidade atual de toners :(')
+                return redirect('index')
+            if int(quantidade_fornecida) < 1:
+                messages.error(request, 'A quantidade de toners usados não pode ser menor que 1 :(')
+                return redirect('index')
+            if int(quantidade_fornecida) > 1:
+                messages.success(request, 'A impressora de código {} usou mais {} toners :)'.format(impressora, quantidade_fornecida))
+                Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                return redirect('index')
+            else:
+                messages.success(request, 'A impressora de código {} usou mais {} toner :)'.format(impressora, quantidade_fornecida))
+                Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                return redirect('index')
 
     dados = {
         'impressoras': Impressoras.objects.all()
