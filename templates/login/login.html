@@ -25,8 +25,9 @@
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100">
+		<div style="background: #c1c1c1;" class="container-login100">
 			<div style='border-radius: 40px;' class="wrap-login100">
+				
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="{% static 'login/images/logo1.jpg' %}" alt="IMG">
 				</div>
@@ -36,7 +37,7 @@
 					<span class="login100-form-title">
 						Login
 					</span>
-
+					{% include 'login/partials/_alertas.html' %}
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="usuario" placeholder="Usuário">
 						<span class="focus-input100"></span>

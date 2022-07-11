@@ -1,8 +1,10 @@
+from datetime import datetime
 from django.contrib import messages
 import imp
 from django.shortcuts import render, redirect
-from app.models import Impressoras
+from app.models import Impressoras, Logs
 from views.index.funcoes.adiciona_impressora import adiciona_impressora
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -28,6 +30,10 @@ def index(request):
             impressora_a_editar.update(codigo=codigo, setor=setor, marca=marca, modelo=modelo, qtd_toners=toners_estoque, ip=ip)
             if codigo != False:
                 messages.success(request, 'Impressora editada com sucesso! :)')
+                Logs.objects.create(acao='Edição de impressora', data=datetime.now(), descricao=
+                'Foi realizada alterações na impressora cujo código de indentificação é {}'.format(codigo), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
 
 
@@ -61,6 +67,10 @@ def index(request):
             # ADICIONA A IMPRESSORA
             else:
                 adiciona_impressora(request, codigo, setor, marca, modelo, toners_estoque, ip)
+                Logs.objects.create(acao='Cadastro de impressora', data=datetime.now(), descricao=
+                'Foi realizado o cadastro de uma nova impressora, cujo código de identificação é {}'.format(codigo), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
 
 
@@ -69,6 +79,10 @@ def index(request):
             impressora_a_excluir = Impressoras.objects.filter(codigo=codigo)
             impressora_a_excluir.delete()
             messages.success(request, 'Impressora excluída com sucesso! :)')
+            Logs.objects.create(acao='Exclusão de impressora', data=datetime.now(), descricao=
+                'Foi realizada a exclusão da impressora cujo código de indentificação é {}'.format(codigo), 
+                usuario=str(request.user)
+                ).save(),
             return redirect('index')
         
 
@@ -83,10 +97,18 @@ def index(request):
             if int(quantidade_fornecida) > 1:
                 messages.success(request, 'A impressora de código {} ganhou mais {} toners :)'.format(impressora, quantidade_fornecida))
                 Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                Logs.objects.create(acao='Entrada de toner', data=datetime.now(), descricao=
+                'Foi realizada a entrada de {} toners para a impressora cujo código de identificação é {}'.format(quantidade_fornecida, impressora), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
             else:
                 messages.success(request, 'A impressora de código {} ganhou mais {} toner :)'.format(impressora, quantidade_fornecida))
                 Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                Logs.objects.create(acao='Entrada de toner', data=datetime.now(), descricao=
+                'Foi realizada a entrada de {} toner para a impressora cujo código de identificação é {}'.format(quantidade_fornecida, impressora), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
             
     
@@ -105,13 +127,36 @@ def index(request):
             if int(quantidade_fornecida) > 1:
                 messages.success(request, 'A impressora de código {} usou mais {} toners :)'.format(impressora, quantidade_fornecida))
                 Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                Logs.objects.create(acao='Saída de toner', data=datetime.now(), descricao=
+                'Foi realizada a saída de {} toners para a impressora cujo código de identificação é {}'.format(quantidade_fornecida, impressora), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
             else:
                 messages.success(request, 'A impressora de código {} usou mais {} toner :)'.format(impressora, quantidade_fornecida))
                 Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
+                Logs.objects.create(acao='Saída de toner', data=datetime.now(), descricao=
+                'Foi realizada a saída de {} toner para a impressora cujo código de identificação é {}'.format(quantidade_fornecida, impressora), 
+                usuario=str(request.user)
+                ).save(),
                 return redirect('index')
 
     dados = {
-        'impressoras': Impressoras.objects.all()
+        'impressoras': Impressoras.objects.all(),
+        'iniciais': str(str(request.user))[0]
     }
-    return render(request, 'app/index.html', dados)
+    if request.user.is_authenticated:
+        return render(request, 'app/index.html', dados)
+    else:
+        return redirect('login')
+
+
+def logs(request):
+    dados = {
+        'logs': Logs.objects.all(),
+        'iniciais': str(str(request.user))[0]
+    }
+    if request.user.is_authenticated:
+        return render(request, 'app/logs.html', dados)
+    else:
+        return redirect('login')

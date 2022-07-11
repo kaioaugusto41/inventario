@@ -12,3 +12,12 @@ class Impressoras(models.Model):
 
     def __str__(self):
         return self.codigo
+
+class Logs(models.Model):
+    acao = models.CharField(max_length=100)
+    data = models.DateTimeField()
+    descricao = models.TextField()
+    usuario = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.acao
