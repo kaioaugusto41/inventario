@@ -114,4 +114,4 @@ def index(request):
     dados = {
         'impressoras': Impressoras.objects.all()
     }
-    return render(request, 'index.html', dados)
+    return render(request, 'app/index.html', dados)
