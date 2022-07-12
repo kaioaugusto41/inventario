@@ -1,6 +1,6 @@
 {% load static %}
 
-<form action={% url 'index' %} method='POST'>
+<form action={% url 'impressoras' %} method='POST'>
     {% csrf_token %}
     <input name='funcao' type="text" value='adiciona_toner' style="display: none;">
     <div class="modal fade" id="entradaToner" tabindex="-1" aria-hidden="true">
@@ -14,7 +14,13 @@
             <div class="row">
                 <div class="col mb-3">
                 <label for="nameSmall" class="form-label">Usuário</label>
-                <input type="text" id="nameSmall" class="form-control" placeholder="kaio.augusto">
+                <input disabled type="text" id="nameSmall" class="form-control" placeholder="kaio.augusto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                <label for="nameSmall" class="form-label">Ticket</label>
+                <input name='ticket' type="text" id="nameSmall" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="row g-2">
@@ -22,7 +28,7 @@
                 <label class="form-label" for="emailSmall">Quantidade</label>
                 <input name='quantidade' type="number" value=1 required class="form-control" id="emailSmall">
                 </div>
-                <div class="col mb-0">
+                <!-- <div class="col mb-0">
                 <label for="dobSmall" class="form-label">Impressora</label>
                 <select name='impressora' class="form-select" tabindex="0" id="roleEx3">
                     {% if impressoras %}
@@ -31,7 +37,7 @@
                     {% endfor %}
                     {% endif %}
                 </select>
-                </div>
+                </div> -->
             </div>
             </div>
             <div class="modal-footer">

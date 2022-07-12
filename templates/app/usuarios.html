@@ -49,18 +49,31 @@
                             <span class="fw-semibold">Administrador</span>
                         </td>
                         <td style="">
+                            {% if usuario.is_active == True %}
                             <span class="badge bg-label-success">Ativo</span>
+                            {% elif usuario.is_active == False %}
+                            <span class="badge bg-label-warning">Suspenso</span>
+                            {% endif %}
                         </td>
                         <td style="">
+                                {% csrf_token %}
                             <div class="d-inline-block">
+                                {% if usuario_logado == usuario %}
+                                <i class='bx bx-check-circle'></i>
+                                {% else %}
                                 <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                     <i class="bx bx-dots-vertical-rounded"></i>
-                                </button><div class="dropdown-menu dropdown-menu-end">
-                                    <a href="app-user-view-account.html" class="dropdown-item">View</a>
-                                    <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    {% if usuario.is_active == True %}
+                                    <button data-usuario={{usuario.username}} data-bs-toggle="modal" data-bs-target="#suspenderUsuario" href="javascript:void(0);" class="dropdown-item text-warning delete-record">Suspender</button>
+                                    {% elif usuario.is_active == False %}
+                                    <button data-usuario={{usuario.username}} data-bs-toggle="modal" data-bs-target="#ativarUsuario" href="javascript:void(0);" class="dropdown-item text-success delete-record">Ativar</button>
+                                    {% endif %}
                                     <div class="dropdown-divider"></div>
-                                    <a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a>
+                                    <button data-usuario={{usuario.username}} data-bs-toggle="modal" data-bs-target="#excluirUsuario" href="javascript:void(0);" class="dropdown-item text-danger delete-record">Excluir</button>
                                 </div>
+                                {% endif %}
                             </div>
                         </td>
                     
@@ -70,7 +83,7 @@
                 </tbody>
             </table>
                 {% comment %} {% else %}
-              <p style="text-align: center;">Não há logs cadastrados no momento</p>
+              <p style="text-align: center;">Não há usuários cadastrados no momento</p>
                 {% endif %}
                {% endcomment %}
             </div>
@@ -79,6 +92,8 @@
     </div>
     
             <!-- / Content -->
-
+{% include 'app/partials/_excluir_usuario.html' %}
+{% include 'app/partials/_suspender_usuario.html' %}
+{% include 'app/partials/_ativar_usuario.html' %}
 {% include 'app/partials/_footer.html' %}
 {% endblock %}

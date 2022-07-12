@@ -18,6 +18,21 @@ class Logs(models.Model):
     data = models.DateTimeField()
     descricao = models.TextField()
     usuario = models.CharField(max_length=200)
+    ticket = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.acao
+
+class solicitacoes(models.Model):
+    usuario = models.CharField(max_length=50)
+    ticket = models.CharField(max_length=100)
+    impressora = models.CharField(max_length=20)
+    marca = models.CharField(max_length=50)
+    modelo = models.CharField(max_length=100)
+    quantidade = models.IntegerField()
+    status_aberto = models.BooleanField(default=True)
+    data = models.DateTimeField()
+    encerrado_por = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.ticket
