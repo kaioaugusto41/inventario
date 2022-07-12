@@ -164,7 +164,7 @@ def logs(request):
 def usuarios(request):
     iniciais_usuarios = []
     for usuario in User.objects.all():
-        iniciais_usuarios.append(str(usuario.first_name)[0])
+        iniciais_usuarios.append(str(usuario)[0])
     lista_iniciais_e_users = zip(iniciais_usuarios, User.objects.all())
 
     dados = {
