@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+
+        {% include 'app/partials/_menu.html' %}
+          <!-- / Navbar -->
+
+          <!-- NÃO EXCLUIR -->
+          <div class="content-wrapper">
+            <br>
+            {% include 'app/partials/_alertas.html' %}
+            <h5 style="text-align: center;" class="mb-4">Usuários</h5>
+            <div style='height: 400px;' class="table-responsive text-nowrap">
+              <table  class="table card-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Usuário</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% if user %}
+                    {% for iniciais, usuario in lista_iniciais_e_users %}
+                    <tr class="odd">
+                        <td class=" control" tabindex="0" style="display: none;"></td>
+                        <td class="sorting_1"><div class="d-flex justify-content-start align-items-center">
+                            <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
+                                <span class="avatar-initial rounded-circle bg-label-primary">{{iniciais}}</span></div>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="app-user-view-account.html" class="text-body text-truncate">
+                                    <span class="fw-semibold">{{usuario.first_name}} {{usuario.last_name}}</span>
+                                </a>
+                                <small class="text-muted">{{usuario.email}}</small>
+                            </div>
+                        </div>
+                        </td>
+                        <td>
+                            <span class="text-truncate d-flex align-items-center">
+                                {{usuario.username}}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="fw-semibold">Administrador</span>
+                        </td>
+                        <td style="">
+                            <span class="badge bg-label-success">Ativo</span>
+                        </td>
+                        <td style="">
+                            <div class="d-inline-block">
+                                <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button><div class="dropdown-menu dropdown-menu-end">
+                                    <a href="app-user-view-account.html" class="dropdown-item">View</a>
+                                    <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+                {% comment %} {% else %}
+              <p style="text-align: center;">Não há logs cadastrados no momento</p>
+                {% endif %}
+               {% endcomment %}
+            </div>
+
+
+    </div>
+    
+            <!-- / Content -->
+
+{% include 'app/partials/_footer.html' %}
+{% endblock %}
