@@ -273,3 +273,14 @@ def solicitacoes_encerradas(request):
         return render(request, 'app/solicitacoes_encerradas.html', dados)
     else:
         return redirect('login')
+
+def minhas_solicitacoes(request):
+    if request.user.is_authenticated:
+        dados = {
+            'solicitacoes': solicitacoes.objects.filter(usuario=str(request.user)),
+            'iniciais': str(request.user)[0],
+            'impressoras': Impressoras.objects.all()
+        }
+        return render(request, 'app/minhas_solicitacoes.html', dados)
+    else:
+        return redirect('login')

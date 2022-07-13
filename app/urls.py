@@ -10,5 +10,6 @@ urlpatterns = [
     path('usuarios', views.usuarios, name='usuarios'),
     path('todas_as_solicitacoes', views.todas_as_solicitacoes, name='todas_as_solicitacoes'),
     path('solicitacoes_em_aberto', views.solicitacoes_em_aberto, name='solicitacoes_em_aberto'),
-    path('solicitacoes_encerradas', views.solicitacoes_encerradas, name='solicitacoes_encerradas')
+    path('solicitacoes_encerradas', views.solicitacoes_encerradas, name='solicitacoes_encerradas'),
+    path('minhas_solicitacoes', views.minhas_solicitacoes, name='minhas_solicitacoes')
 ]

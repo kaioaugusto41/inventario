@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-=y^l@=j6u1&nhmnrp=3)amat5c#)um9s7-e^4ut83vn*^o-a73
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.180.1.32']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'inventario.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'inventario',
-        'USER': 'postgres',
+        'USER': 'root',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
-        'PORT': '5432'
+        'PORT': '3306'
     }
 }
 
