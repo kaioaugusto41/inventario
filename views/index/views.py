@@ -12,6 +12,7 @@ def index(request):
         print(solicitacoes.objects.all())
 
         dados = {
+            
             'solicitacoes_em_aberto': solicitacoes.objects.filter(status_aberto=True),
             'iniciais': str(str(request.user))[0],
             'impressoras': Impressoras.objects.all()
@@ -41,6 +42,19 @@ def impressoras(request):
             toners_estoque = request.GET.get('toners_estoque', False)
             ip = request.GET.get('ip', False)
             impressora_a_editar = Impressoras.objects.filter(codigo=codigo)
+            impressora_a_editar_ip = str(Impressoras.objects.filter(codigo=codigo)[0].ip)
+
+            # Valida existência do ip
+            if ip != impressora_a_editar_ip and ip in lista_ips:
+                print('*********', impressora_a_editar_ip)
+                messages.error(request, 'Não foi possível editar a impressora pois já existe uma com este endereço IP :(')
+                return redirect('impressoras')
+
+            # Valida tamanho do ip
+            if len(ip) < 10 or ip.count('.') != 3:
+                messages.error(request, 'O endereço IP {} não é um IP válido :('.format(ip))
+                return redirect('impressoras')
+                
             impressora_a_editar.update(codigo=codigo, setor=setor, marca=marca, modelo=modelo, qtd_toners=toners_estoque, ip=ip)
             if codigo != False:
                 messages.success(request, 'Impressora editada com sucesso! :)')
@@ -48,7 +62,7 @@ def impressoras(request):
                 'Foi realizada alterações na impressora cujo código de indentificação é {}'.format(codigo), 
                 usuario=str(request.user)
                 ).save(),
-                return redirect('index')
+                return redirect('impressoras')
 
 
 
@@ -66,17 +80,17 @@ def impressoras(request):
             # Valida existência do código
             if codigo in lista_codigos:
                 messages.error(request, 'Não foi possível adicionar a impressora pois já existe uma com este código :(')
-                return redirect('index')
+                return redirect('impressoras')
 
             # Valida existência do ip
             if ip in lista_ips:
                 messages.error(request, 'Não foi possível adicionar a impressora pois já existe uma com este endereço IP :(')
-                return redirect('index')
+                return redirect('impressoras')
 
             # Valida tamanho do ip
             if len(ip) < 10 or ip.count('.') != 3:
                 messages.error(request, 'O endereço IP {} não é um IP válido :('.format(ip))
-                return redirect('index')
+                return redirect('impressoras')
             
             # ADICIONA A IMPRESSORA
             else:
@@ -85,7 +99,7 @@ def impressoras(request):
                 'Foi realizado o cadastro de uma nova impressora, cujo código de identificação é {}'.format(codigo), 
                 usuario=str(request.user)
                 ).save(),
-                return redirect('index')
+                return redirect('impressoras')
 
 
         if funcao == 'exclui_impressora':
@@ -97,7 +111,7 @@ def impressoras(request):
                 'Foi realizada a exclusão da impressora cujo código de indentificação é {}'.format(codigo), 
                 usuario=str(request.user)
                 ).save(),
-            return redirect('index')
+            return redirect('impressoras')
         
 
         if funcao == 'adiciona_toner':
@@ -128,7 +142,7 @@ def impressoras(request):
             else:
                 messages.success(request, 'A impressora de código {} ganhou mais {} toner :)'.format(impressora, quantidade_fornecida))
                 Impressoras.objects.filter(codigo=impressora).update(qtd_toners=quantidade_nova)
-                solicitacoes.objects.filter(ticket=ticket).update(status_aberto=False, encerrado_por=request.user)
+                solicitacoes.objects.filter(ticket=ticket).update(status_aberto=False, encerrado_por=str(request.user))
                 Logs.objects.create(acao='Entrada de toner', data=datetime.now(), descricao=
                 'Foi realizada a entrada de {} toner para a impressora cujo código de identificação é {}'.format(quantidade_fornecida, impressora), 
                 usuario=str(request.user)
@@ -180,6 +194,7 @@ def impressoras(request):
                 return redirect('index')
 
     dados = {
+        
         'impressoras': Impressoras.objects.all(),
         'iniciais': str(str(request.user))[0]
     }
@@ -191,6 +206,7 @@ def impressoras(request):
 
 def logs(request):
     dados = {
+        
         'logs': Logs.objects.all(),
         'iniciais': str(str(request.user))[0],
         'impressoras': Impressoras.objects.all()
@@ -203,6 +219,7 @@ def logs(request):
 def logs_entrada_toner(request):
     if request.user.is_authenticated:
         dados = {
+            
         'logs': Logs.objects.all(),
         'iniciais': str(str(request.user))[0],
         'impressoras': Impressoras.objects.all()
@@ -214,6 +231,7 @@ def logs_entrada_toner(request):
 def logs_saida_toner(request):
     if request.user.is_authenticated:
         dados = {
+            
         'logs': Logs.objects.all(),
         'iniciais': str(str(request.user))[0],
         'impressoras': Impressoras.objects.all()
@@ -230,6 +248,7 @@ def usuarios(request):
     lista_iniciais_e_users = zip(iniciais_usuarios, User.objects.all())
 
     dados = {
+        
         'lista_iniciais_e_users': lista_iniciais_e_users,
         'iniciais': str(request.user)[0],
         'impressoras': Impressoras.objects.all(),
@@ -244,6 +263,7 @@ def usuarios(request):
 def todas_as_solicitacoes(request):
     if request.user.is_authenticated:
         dados = {
+            
             'solicitacoes': solicitacoes.objects.all(),
             'iniciais': str(request.user)[0],
             'impressoras': Impressoras.objects.all()
@@ -255,6 +275,7 @@ def todas_as_solicitacoes(request):
 def solicitacoes_em_aberto(request):
     if request.user.is_authenticated:
         dados = {
+            
             'solicitacoes_em_aberto': solicitacoes.objects.filter(status_aberto=True),
             'iniciais': str(request.user)[0],
             'impressoras': Impressoras.objects.all()
@@ -266,6 +287,7 @@ def solicitacoes_em_aberto(request):
 def solicitacoes_encerradas(request):
     if request.user.is_authenticated:
         dados = {
+            
             'solicitacoes_encerradas': solicitacoes.objects.filter(status_aberto=False),
             'iniciais': str(request.user)[0],
             'impressoras': Impressoras.objects.all()
@@ -277,6 +299,7 @@ def solicitacoes_encerradas(request):
 def minhas_solicitacoes(request):
     if request.user.is_authenticated:
         dados = {
+            
             'solicitacoes': solicitacoes.objects.filter(usuario=str(request.user)),
             'iniciais': str(request.user)[0],
             'impressoras': Impressoras.objects.all()
