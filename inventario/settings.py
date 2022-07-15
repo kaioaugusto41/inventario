@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'inventario.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'inventario',
-        'USER': 'postgres',
+        'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5433'
+        'HOST': '192.168.1.218',
+        'PORT': '3306'
     }
 }
 

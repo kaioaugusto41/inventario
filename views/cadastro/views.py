@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 from app.models import Logs
+from views.index.views import usuarios
 
 def cadastro(request):
     if request.method == 'POST':
@@ -44,3 +45,46 @@ def cadastro(request):
         return redirect('index')
     else:
         return redirect('login')
+
+def deleta_usuario(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            usuario = request.POST.get('usuario', False)
+            User.objects.filter(username=usuario).delete()
+            messages.success(request, 'Usuário {} excluído com sucesso!'.format(usuario))
+            Logs.objects.create(acao='Exclusão de usuário', data=datetime.now(), descricao=
+                'Foi realizada a exclusão do usuário {}'.format(usuario), 
+                usuario=str(request.user)
+                ).save()
+            return redirect('usuarios')
+        return redirect('usuarios')
+    else:
+        return redirect('login')
+
+def suspende_usuario(request):
+    if request.user.is_authenticated:
+        usuario = request.POST.get('usuario', False)
+        User.objects.filter(username=usuario).update(is_active=False)
+        messages.success(request, 'O usuário {} foi suspenso com sucesso :)'.format(usuario))
+        Logs.objects.create(acao='Suspensão de usuário', data=datetime.now(), descricao=
+                'Foi realizada a suspensão do usuário {}'.format(usuario), 
+                usuario=str(request.user)
+                ).save()
+        return redirect('usuarios')
+    else:
+        return redirect('login')
+
+def ativa_usuario(request):
+    if request.user.is_authenticated:
+        usuario = request.POST.get('usuario', False)
+        User.objects.filter(username=usuario).update(is_active=True)
+        messages.success(request, 'O usuário {} foi ativo com sucesso :)'.format(usuario))
+        Logs.objects.create(acao='Ativação de usuário', data=datetime.now(), descricao=
+                'Foi realizada a ativação do usuário {}'.format(usuario), 
+                usuario=str(request.user)
+                ).save()
+        return redirect('usuarios')
+    else:
+        return redirect('login')
+
+

@@ -34,6 +34,13 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
+            <a href={% url 'impressoras' %} class="menu-link">
+              <div data-i18n="Notifications">Todas</div>
+            </a>
+          </li>
+        </ul>
+        <ul class="menu-sub">
+          <li class="menu-item">
             <a data-bs-toggle="modal" data-bs-target="#adicionarImpressora" href="pages-account-settings-notifications.html" class="menu-link">
               <div data-i18n="Notifications">Cadastrar</div>
             </a>
@@ -60,6 +67,29 @@
       </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-note"></i>
+          <div data-i18n="Authentications">Solicitações</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href={% url 'todas_as_solicitacoes' %} class="menu-link">
+              <div data-i18n="Basic">Todas</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href={% url 'solicitacoes_em_aberto' %} class="menu-link">
+              <div data-i18n="Basic">Em aberto</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href={% url 'solicitacoes_encerradas' %} class="menu-link">
+              <div data-i18n="Basic">Encerradas</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-history"></i>
           <div data-i18n="Authentications">Histórico</div>
         </a>
@@ -70,12 +100,12 @@
             </a>
           </li>
           <li class="menu-item">
-            <a href="auth-register-basic.html" class="menu-link" target="_blank">
+            <a href={% url 'logs_entrada_toner' %} class="menu-link">
               <div data-i18n="Basic">Entradas de Toner</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+            <a href={% url 'logs_saida_toner' %} class="menu-link">
               <div data-i18n="Basic">Saídas de Toner</div>
             </a>
           </li>
@@ -193,7 +223,7 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href={% url 'minhas_solicitacoes' %}>
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
                     <span class="flex-grow-1 align-middle">Minhas solicitações</span>

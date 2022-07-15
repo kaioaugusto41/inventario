@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+
+        <!-- Menu -->
+
+        {% include 'app/partials/_menu.html' %}
+          <!-- / Navbar -->
+
+          <!-- NÃO EXCLUIR -->
+          <div class="content-wrapper">
+            <br>
+            {% include 'app/partials/_alertas.html' %}
+            <h5 style="text-align: center;" class="mb-4">Saídas de toner</h5>
+            <div style='height: 400px;' class="table-responsive text-nowrap">
+              <table  class="table card-table">
+                <thead>
+                  <tr>
+                    <th style='text-align: center;'>Código</th>
+                    <th>Ação</th>
+                    <th>Data</th>
+                    <th style='text-align: center;'>Descrição</th>
+                    <th>Usuário</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                  {% if logs %}
+                  {% for log in logs %}
+                  {% if log.acao == 'Saída de toner' %}
+                  <tr>
+                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{log.id}}</strong></td>
+                    <td>{{log.acao}}</td>
+                    <td>{{log.data}}</td>
+                    <td>
+                      {{log.descricao}}
+                    </td>
+                    <td>
+                      {{log.usuario}}
+                    </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %} 
+                </tbody>
+            </table>
+                {% else %}
+              <p style="text-align: center;">Não há logs cadastrados no momento</p>
+                {% endif %}
+              
+            </div>
+
+    </div>
+    
+            <!-- / Content -->
+
+{% include 'app/partials/_footer.html' %}
+{% endblock %}

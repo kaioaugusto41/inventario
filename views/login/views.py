@@ -13,6 +13,9 @@ def login(request):
         if not User.objects.filter(username=usuario).exists():
             messages.error(request, 'O usuário {} não existe :('.format(usuario))
             return redirect('login')
+        if User.objects.filter(username=usuario)[0].is_active == False:
+            messages.warning(request, 'O usuário {} está desativado :('.format(usuario))
+            return redirect('login')
         else:
             nome = User.objects.filter(username=usuario).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=usuario, password=senha)
