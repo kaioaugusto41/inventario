@@ -26,8 +26,9 @@
                     <th>Marca</th>
                     <th style='text-align: center;'>Modelo</th>
                     <th>Quantidade</th>
-                    <th>Data</th>
+                    <th>Data de abertura</th>
                     <th>Solicitante</th>
+                    <th>Data de encerramento</th>
                     <th>Encerrado por</th>
                   </tr>
                 </thead>
@@ -50,6 +51,7 @@
                     <td>{{solicitacao.quantidade}}</td>
                     <td>{{solicitacao.data}}</td>
                     <td>{{solicitacao.usuario}}</td>
+                    <td>{{solicitacao.encerrado_em}}</td>
                     <td>{{solicitacao.encerrado_por}}</td>
                   </tr>
                   {% endfor %} 

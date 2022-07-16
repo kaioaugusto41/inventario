@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 from app.models import Logs
-from views.index.views import usuarios
+from views.usuarios.views import usuarios
 
 def cadastro(request):
     if request.method == 'POST':

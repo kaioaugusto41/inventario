@@ -32,7 +32,9 @@ class solicitacoes(models.Model):
     quantidade = models.IntegerField()
     status_aberto = models.BooleanField(default=True)
     data = models.DateTimeField()
+    encerrado_em = models.DateTimeField(blank=True)
     encerrado_por = models.CharField(max_length=100, blank=True)
+    
 
     def __str__(self):
         return self.ticket
