@@ -17,22 +17,22 @@ def cadastro(request):
         senha_confirmacao = request.POST.get('senha_confirmacao', False)
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Não foi possível cadastrar o usuário pois já existe um com este endereço e-mail :(')
-            return redirect('index')
+            return redirect('usuarios')
         if User.objects.filter(username=usuario).exists():
             messages.error(request, 'Não foi possível cadastrar o usuário pois já existe um com este usuário :(')
-            return redirect('index')
+            return redirect('usuarios')
         if senha != senha_confirmacao:
             messages.error(request, 'As senhas não são iguais :(')
-            return redirect('index')
+            return redirect('usuarios')
         if len(senha) < 6:
             messages.error(request, 'A senha não pode ser menor que 6 caracteres :(')
-            return redirect('index')
+            return redirect('usuarios')
         if usuario.count('.') < 1 or usuario.count('.') > 1:
             messages.error(request, 'O nome de usuário {} não é válido, tente neste formato: exemplo.usuario'.format(usuario))
-            return redirect('index')
+            return redirect('usuarios')
         if usuario[:usuario.index('.')].lstrip() == '' or usuario[usuario.index('.')+1:].lstrip() == '':
             messages.error(request, 'O nome de usuário {} não é válido, tente neste formato: exemplo.usuario'.format(usuario))
-            return redirect('index')
+            return redirect('usuarios')
         else:
             User.objects.create_user(first_name=nome, last_name=sobrenome, email=email, username=usuario, password=senha).save()
             messages.success(request, 'Usuário {} cadastrado com sucesso :)'.format(usuario))
@@ -42,7 +42,7 @@ def cadastro(request):
                 ).save(),
 
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('usuarios')
     else:
         return redirect('login')
 

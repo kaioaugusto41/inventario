@@ -13,7 +13,7 @@
 
     <div class="menu-inner-shadow"></div>
 
-    <ul class="menu-inner py-1">
+    <ul class="nav menu-inner py-1">
       <!-- Dashboard -->
       <li class="menu-item active">
         <a href={% url 'index' %} class="menu-link">
@@ -22,7 +22,6 @@
         </a>
       </li>
 
-      
 
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Navegação</span>
@@ -160,12 +159,14 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
           <div class="nav-item d-flex align-items-center">
-            <i class="bx bx-search fs-4 lh-0"></i>
+            <i class="bx bxs-face-mask fs-4 lh-0"></i>
             <input
+              style="background-color: white;"
+              readonly
               type="text"
               class="form-control border-0 shadow-none"
-              placeholder="Search..."
-              aria-label="Search..."
+              placeholder="Olá, {{user.first_name}}"
+              aria-label="Olá, {{user.first_name}}"
             />
           </div>
         </div>
@@ -210,25 +211,19 @@
               <li>
                 <div class="dropdown-divider"></div>
               </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  <i class="bx bx-user me-2"></i>
-                  <span class="align-middle">Meu Perfil</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  <i class="bx bx-cog me-2"></i>
-                  <span class="align-middle">Redefinir Senha</span>
-                </a>
-              </li>
+              
               <li>
                 <a class="dropdown-item" href={% url 'minhas_solicitacoes' %}>
                   <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                    <i class="flex-shrink-0 bx bx-note me-2"></i>
                     <span class="flex-grow-1 align-middle">Minhas solicitações</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
                   </span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href={% url 'reset_password' %}>
+                  <i class="bx bx-cog me-2"></i>
+                  <span class="align-middle">Redefinir Senha</span>
                 </a>
               </li>
               <li>
@@ -246,6 +241,8 @@
         </ul>
       </div>
     </nav>
+
+    
 
     {% include 'app/partials/_adicionar_impressora_menu.html' %}
     {% include 'app/partials/_entrada_toner.html' %}

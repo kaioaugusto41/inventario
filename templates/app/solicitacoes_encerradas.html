@@ -27,7 +27,8 @@
                     <th style='text-align: center;'>Modelo</th>
                     <th>Quantidade</th>
                     <th>Data</th>
-                    <th>Usuário</th>
+                    <th>Solicitante</th>
+                    <th>Encerrado por</th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -49,6 +50,7 @@
                     <td>{{solicitacao.quantidade}}</td>
                     <td>{{solicitacao.data}}</td>
                     <td>{{solicitacao.usuario}}</td>
+                    <td>{{solicitacao.encerrado_por}}</td>
                   </tr>
                   {% endfor %} 
                 </tbody>
