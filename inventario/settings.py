@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'inventario.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'inventario',
-        'USER': 'admin',
+        'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': '192.168.1.218',
-        'PORT': '3306'
+        'HOST': 'localhost',
+        'PORT': '5433'
     }
 }
 
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'America/Sao_Paulo'
+TIME_ZONE = 'America/Sao_Pauloo'
 
 USE_I18N = True
 
